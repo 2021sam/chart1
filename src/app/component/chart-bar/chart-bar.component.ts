@@ -8,11 +8,10 @@ import { Chart } from 'chart.js/auto';
 
 
 enum Chart_Types {
-  BAR ='bar',
+  BAR = 'bar',
   LINE = 'line',
   PIE = 'pie'
 };
-
 
 
 @Component({
@@ -22,39 +21,47 @@ enum Chart_Types {
 })
 
 export class ChartBarComponent implements OnInit {
-
   public chart: any;
   public click_message: string;
   public chart_type = 'bar';
 
 
-
-  constructor() {
+  constructor()
+  {
     this.click_message = 'Constructor';
-
-
-    // enum Chart_Types {
-    //   BAR ='bar',
-    //   LINE = 'line',
-    //   PIE = 'pie'
-    // };
   }
 
 
-  clickMessage($event: Event) {
+  clickMessage(type: Chart_Types)
+   {
     // throw new Error('Method not implemented.');
-    console.log($event);
-    this.click_message = 'gots a n on da hook !';
-    console.log( this.chart );
+    console.log(type);
+    // this.click_message = type;
+    // console.log( this.chart );
     this.chart.destroy();
-    this.createChart(Chart_Types.LINE);
+    // let x = Chart_Types.LINE;
+    // console.log(typeof x);
+    // this.createChart(Chart_Types.LINE);
+    this.createChart( type );
   }
 
 
   ngOnInit(): void {
     // throw new Error('Method not implemented.');
     this.createChart(Chart_Types.BAR);
-    // this.click_message = '.';
+    this.click_message = '.';
+  }
+
+  set_chart_line()
+  {
+    this.chart.destroy();
+    this.createChart( Chart_Types.LINE );
+  }
+
+  set_chart_bar()
+  {
+    this.chart.destroy();
+    this.createChart( Chart_Types.BAR );
   }
 
 
@@ -84,7 +91,6 @@ export class ChartBarComponent implements OnInit {
         aspectRatio:2.5
       }
     });
-
 
     console.log( this.chart );
   }
